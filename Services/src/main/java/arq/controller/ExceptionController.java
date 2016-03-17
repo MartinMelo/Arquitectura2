@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import arq.exception.MarketRuntimeException;
+import arq.service.exception.MarketRuntimeException;
 
 
 @ControllerAdvice

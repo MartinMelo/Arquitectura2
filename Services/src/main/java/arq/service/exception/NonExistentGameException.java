@@ -1,4 +1,4 @@
-package arq.exception;
+package arq.service.exception;
 
 public class NonExistentGameException extends MarketRuntimeException {
     
