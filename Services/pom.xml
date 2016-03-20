@@ -72,6 +72,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+		  <groupId>com.newrelic.agent.java</groupId>
+		  <artifactId>newrelic-agent</artifactId>
+		  <version>3.12.1</version>
+		  <scope>provided</scope>
+		</dependency>
 
 	</dependencies>
 
@@ -83,6 +90,43 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+				  <mainClass>arq.Application</mainClass>
+				</configuration>
+			</plugin>
+			
+			<!-- Spring Boot new relic -->
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-dependency-plugin</artifactId>
+			  <version>2.9</version>
+			  <executions>
+			    <execution>
+			      <phase>prepare-package</phase>
+			      <goals>
+			         <goal>unpack-dependencies</goal>
+			      </goals>
+			      <configuration>
+			        <includeArtifactIds>newrelic-agent</includeArtifactIds>
+			        <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+			      </configuration>
+			    </execution>
+			  </executions>
+			</plugin>
+			
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-jar-plugin</artifactId>
+			  <version>2.5</version>
+			  <configuration>
+			    <archive>
+			      <manifestEntries>
+			        <Premain-Class>com.newrelic.bootstrap.BootstrapAgent</Premain-Class>
+			        <Can-Redefine-Classes>true</Can-Redefine-Classes>
+			        <Can-Retransform-Classes>true</Can-Retransform-Classes>
+			      </manifestEntries>
+			    </archive>
+			  </configuration>
 			</plugin>
 
 		</plugins>
