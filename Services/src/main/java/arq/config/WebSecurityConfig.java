@@ -48,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/**/sessionManager/**").hasAnyRole("ADMIN")
             .antMatchers("/**/hal-browser/**").anonymous()
            
+            .antMatchers("/**/api/v1/**").anonymous()
             .antMatchers("/**/event/**").anonymous()
             .antMatchers("/**/api/v1/event/**").anonymous()
             
