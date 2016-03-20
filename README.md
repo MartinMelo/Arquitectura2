@@ -9,3 +9,12 @@ mvn spring-boot:run
 mvn package
 cd target
 java -jar api.jar
+
+#Deploy with NewRelic
+
+mvn package
+cd target
+java -javaagent:../newrelic.jar -jar api.jar
+
+#API REST
+localhost:8080/api/v1/

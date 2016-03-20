@@ -16,3 +16,4 @@ Thumbs.db
 *.class
 *.tmp
 /Services/src/main/resources/logs
+/Services/logs
