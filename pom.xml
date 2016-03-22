@@ -14,8 +14,7 @@
     <modules>
         <module>Model</module>
         <module>DB</module>
-        <module>Presentation</module>
-        <module>Services</module>
+        <module>Rest</module>
     </modules>
 
     <properties>

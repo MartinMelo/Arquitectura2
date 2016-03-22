@@ -15,5 +15,6 @@ target/
 Thumbs.db
 *.class
 *.tmp
-/Services/src/main/resources/logs
-/Services/logs
+/Rest/src/main/resources/logs
+/Rest/logs
+Compilados/
