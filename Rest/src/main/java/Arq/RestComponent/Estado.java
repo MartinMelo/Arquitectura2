@@ -2,6 +2,7 @@ package Arq.RestComponent;
 
 import Arq.Controllers.EstadoController;
 import org.apache.cxf.annotations.UseAsyncMethod;
+import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import javax.ws.rs.core.Response;
  */
 @Path("/estado")
 @Component
+@CrossOriginResourceSharing(allowAllOrigins = true)
 public class Estado {
 
     @Autowired

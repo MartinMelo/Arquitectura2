@@ -30,4 +30,5 @@
 
     <bean id="rest.estado" class="Arq.RestComponent.Estado"/>
     <bean id="EstadoController" class="Arq.Controllers.EstadoController"/>
+    <bean id="corsFilter" class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter"/>
 </beans>
