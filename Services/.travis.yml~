@@ -2,10 +2,8 @@ language: java
 jdk:
   - oraclejdk8
 install:
-    - "npm install -g bower"
-    - "bower install"
-    - "npm install"
-    - "gulp build"
+    - "mvn install"
+    - "mvn spring-boot:run -Dspring.profiles.active=dev"
 env:
   - NODE_ENV=travis
 deploy:
@@ -13,4 +11,4 @@ deploy:
   user: marianogvarela@gmail.com
   password: s2BePq54dA
   domain: vymaster
-  app: cortinas
+  app: arqapi
