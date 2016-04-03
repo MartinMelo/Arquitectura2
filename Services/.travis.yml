@@ -1,8 +1,8 @@
 language: java
 jdk:
   - oraclejdk8
-install:
-  - "cd Services"
+sudo: false
+script: mvn clean verify
 env:
   - NODE_ENV=travis
 deploy:
