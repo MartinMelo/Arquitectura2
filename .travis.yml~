@@ -1,0 +1,13 @@
+language: java
+jdk:
+  - oraclejdk8
+sudo: false
+script: mvn clean verify
+env:
+  - NODE_ENV=travis
+deploy:
+  provider: openshift
+  user: marianogvarela@gmail.com
+  password: s2BePq54dA
+  domain: vymaster
+  app: arqapi

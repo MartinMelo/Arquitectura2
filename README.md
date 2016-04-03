@@ -2,7 +2,7 @@
 
 # Run 
 
-mvn spring-boot:run
+mvn spring-boot:run -Dspring.profiles.active=[dev/uat]
 
 # Deploy
 
