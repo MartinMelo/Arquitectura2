@@ -4,8 +4,8 @@ jdk:
 sudo: false
 script: mvn clean verify
 install:
-  - "cd Services" 
-  - "mvn spring-boot:run -Dspring.profiles.active=prod" 
+  - "cd Services"
+  - "mvn package"
 env:
   - NODE_ENV=travis
 deploy:
