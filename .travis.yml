@@ -4,8 +4,7 @@ jdk:
 sudo: false
 script: mvn clean verify
 install:
-  - "cd Services"
-  - "mvn package"
+  - "mvn install"
 env:
   - NODE_ENV=travis
 deploy:
