@@ -17,7 +17,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import arq.validators.EventValidator;
+import arq.validators.MercadoValidator;
+import arq.validators.PrecioValidator;
 
 
 @EnableWebSecurity
@@ -46,11 +47,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/**/sessionUser/**").hasRole("ADMIN")
             .antMatchers("/**/sessionManager/**").hasAnyRole("ADMIN")
-            .antMatchers("/**/hal-browser/**").anonymous()
            
             .antMatchers("/**/api/v1/**").anonymous()
-            .antMatchers("/**/event/**").anonymous()
-            .antMatchers("/**/api/v1/event/**").anonymous()
+            .antMatchers("/**/api/v1/mercado/**").anonymous()
+            .antMatchers("/**/api/v1/precio/**").anonymous()
             
             .anyRequest().authenticated()
             .and()
@@ -64,8 +64,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     
     @Bean
-    EventValidator eventValidator() {
-        return new EventValidator();
+    PrecioValidator precioValidator() {
+        return new PrecioValidator();
+    }
+    
+    @Bean
+    MercadoValidator mercadoValidator() {
+        return new MercadoValidator();
     }
     
 }
