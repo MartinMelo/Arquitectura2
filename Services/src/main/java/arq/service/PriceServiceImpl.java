@@ -3,8 +3,8 @@ package arq.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("precioServiceImpl")
+@Service("priceServiceImpl")
 @Transactional(readOnly = true)
-public class PrecioServiceImpl implements PrecioService {
+public class PriceServiceImpl implements PriceService {
 
 }

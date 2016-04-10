@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
-import arq.domain.Event;
+import arq.domain.Price;
+import arq.domain.Shop;
 
 @Configuration
 public class RepositoryRestConfiguration extends RepositoryRestMvcConfiguration {
@@ -16,7 +17,8 @@ public class RepositoryRestConfiguration extends RepositoryRestMvcConfiguration 
 
     @Override
     protected void configureRepositoryRestConfiguration(org.springframework.data.rest.core.config.RepositoryRestConfiguration config) {
-        config.exposeIdsFor(Event.class);
+        config.exposeIdsFor(Shop.class);
+        config.exposeIdsFor(Price.class);
         try {
             config.setBaseUri(new URI(this.base_path));
         } catch (URISyntaxException e) {

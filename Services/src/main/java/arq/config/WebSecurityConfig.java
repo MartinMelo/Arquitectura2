@@ -17,8 +17,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import arq.validators.MercadoValidator;
-import arq.validators.PrecioValidator;
+import arq.validators.ShopValidator;
+import arq.validators.PriceValidator;
 
 
 @EnableWebSecurity
@@ -49,8 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/**/sessionManager/**").hasAnyRole("ADMIN")
            
             .antMatchers("/**/api/v1/**").anonymous()
-            .antMatchers("/**/api/v1/mercado/**").anonymous()
-            .antMatchers("/**/api/v1/precio/**").anonymous()
+            .antMatchers("/**/api/v1/shops/**").anonymous()
+            .antMatchers("/**/api/v1/found-prices/**").anonymous()
             
             .anyRequest().authenticated()
             .and()
@@ -64,13 +64,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     
     @Bean
-    PrecioValidator precioValidator() {
-        return new PrecioValidator();
+    PriceValidator precioValidator() {
+        return new PriceValidator();
     }
     
     @Bean
-    MercadoValidator mercadoValidator() {
-        return new MercadoValidator();
+    ShopValidator mercadoValidator() {
+        return new ShopValidator();
     }
     
 }
