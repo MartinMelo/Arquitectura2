@@ -27,7 +27,7 @@ public class PriceController {
 		Price foundPrice = new Price();
 		foundPrice.setDatetime(new Date(datetime));
 		foundPrice.setPrice(price);
-		foundPrice.setPruduct_id(product_id);
+		foundPrice.setProduct_id(product_id);
 		//agregar logica para setear el shop
 		return priceRepository.save(foundPrice);
 	}
