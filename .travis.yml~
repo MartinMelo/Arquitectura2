@@ -6,7 +6,6 @@ install:
   - "mvn install"
   - "cd target"
 script: java -javaagent:../newrelic.jar -jar -Dspring.profiles.active=prod api.jar
-
 env:
   - NODE_ENV=travis
 deploy:
