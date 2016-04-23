@@ -2,7 +2,12 @@
 
 # Run 
 
-mvn spring-boot:run -Dspring.profiles.active=[dev/uat]
+Local con base en memoria
+mvn spring-boot:run -Dspring.profiles.active=dev
+Local con una base MySQL
+mvn spring-boot:run -Dspring.profiles.active=uat
+Producción
+mvn spring-boot:run -Dspring.profiles.active=prod
 
 # Deploy
 
@@ -14,7 +19,7 @@ java -jar api.jar
 
 mvn package
 cd target
-java -javaagent:../newrelic.jar -jar api.jar
+java -javaagent:newrelic.jar -jar -Dspring.profiles.active=[dev/uat/prod] api.jar
 
 #API REST
 localhost:8080/api/v1/
