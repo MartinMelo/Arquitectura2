@@ -5,6 +5,7 @@ sudo: false
 script: mvn clean verify
 install:
   - mvn install
+  - mvn package
   - cd target
   - java -javaagent:../newrelic.jar -jar -Dspring.profiles.active=prod api.jar
 env:
