@@ -25,27 +25,6 @@
     </parent>
 
     <dependencies>
-        <!-- Builder de Json a Objeto -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.7.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.7.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.7.3</version>
-        </dependency>
-        <!-- Builder de Json a Objeto -->
-
-
         <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

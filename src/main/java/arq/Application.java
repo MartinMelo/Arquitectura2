@@ -12,7 +12,6 @@ import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import arq.config.RepositoryRestConfiguration;
-import arq.controller.ExceptionController;
 
 @Configuration
 @EnableJpaRepositories
@@ -26,7 +25,6 @@ public class Application {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
-    	LOGGER.info("arrancooooooo");
         SpringApplication.run(Application.class, args);
     }
     
