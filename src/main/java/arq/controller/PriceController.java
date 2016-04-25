@@ -1,7 +1,11 @@
 package arq.controller;
 
+import java.io.IOException;
 import java.util.Date;
 
+import arq.domain.Build;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.newrelic.agent.deps.org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,14 +26,9 @@ public class PriceController {
 	
 	@SuppressWarnings("deprecation")
 	@RequestMapping(method = RequestMethod.POST)
-	public Price save(@RequestParam("shop_id") String shop_id, @RequestParam("product_id") String product_id,
-			@RequestParam("price") double price, @RequestParam("datetime") String datetime) {
-		Price foundPrice = new Price();
-		foundPrice.setDatetime(new Date(datetime));
-		foundPrice.setPrice(price);
-		foundPrice.setProduct_id(product_id);
-		//agregar logica para setear el shop
-		return priceRepository.save(foundPrice);
+	public Price save(@RequestParam("data") String data) throws IOException {
+		Price foundPrice = (Price) Build.build(data,Price.class);
+        return priceRepository.save(foundPrice);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
