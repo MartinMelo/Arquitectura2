@@ -32,4 +32,12 @@ java -javaagent:newrelic.jar -jar -Dspring.profiles.active=[dev/uat/prod] api.ja
 ```
 
 #API REST
+```
 localhost:8080/api/v1/
+```
+
+#Heroku Api
+
+```
+https://supermarketprices.herokuapp.com/api/v1/
+```
