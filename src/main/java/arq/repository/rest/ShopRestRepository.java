@@ -6,6 +6,5 @@ import arq.repository.ShopRepository;
 
 @RepositoryRestResource(path = "shops", collectionResourceRel = "shops")
 public interface ShopRestRepository extends ShopRepository {
-
-
+ 
 }
