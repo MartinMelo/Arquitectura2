@@ -18,3 +18,7 @@ Thumbs.db
 /Services/src/main/resources/logs
 /Services/logs
 /Compilados
+/Rest/src/main/resources/logs
+/Rest/logs
+Compilados/
+
