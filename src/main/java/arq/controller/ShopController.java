@@ -43,10 +43,20 @@ public class ShopController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Page<Shop> getAll(@RequestParam(required=false, value="offset") Integer offset,
-    		@RequestParam(required=false, value="limit") Integer limit) {
+    		@RequestParam(required=false, value="limit") Integer limit,
+    		@RequestParam(required=false, value="name") String name,
+		    @RequestParam(required=false, value="location") String location,
+		    @RequestParam(required=false, value="address") String address,
+		    @RequestParam(required=false, value="latitude") Double latitude,
+		    @RequestParam(required=false, value="longitude") Double longitude) {
+    	System.out.println(name);
+    	System.out.println(location);
+    	System.out.println(address);
+    	System.out.println(latitude);
+    	System.out.println(longitude);
     	if(offset == null && limit == null){
     		Pageable pageable = new PageRequest(0, 20);
-            return pageService.createPage(shopRepository.findAll(pageable));
+            return pageService.createPage(shopRepository.findAll(pageable), offset);
     	}else{
     		if(offset == null){
     			offset = 0;
@@ -56,7 +66,7 @@ public class ShopController {
     		}
     	}
     	Pageable pageable = new OffsetBasedPageRequest(offset, limit);
-        return pageService.createPage(shopRepository.findAll(pageable));
+        return pageService.createPage(shopRepository.findAll(pageable), offset);
     }
     
 }

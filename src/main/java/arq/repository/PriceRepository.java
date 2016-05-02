@@ -7,5 +7,5 @@ import arq.repository.rest.AbstractRestRepository;
 
 @NoRepositoryBean
 public interface PriceRepository extends AbstractRestRepository<Price, Long> {
-
+	
 }
