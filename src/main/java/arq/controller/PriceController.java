@@ -53,12 +53,21 @@ public class PriceController {
 	public arq.pagination.domain.Page<Price> getAll(@RequestParam(required=false, value="offset") Integer offset,
     		@RequestParam(required=false, value="limit") Integer limit,
     		@RequestParam(required=false, value="price") Double price,
-    		@RequestParam(required=false, value="product_id") String product_id) {
-		System.out.println(price);
-		System.out.println(product_id);
+    		@RequestParam(required=false, value="product_id") String product_id,
+    		@RequestParam(required=false, value="shop") Long shop) {
+		Pageable pageDefault = new PageRequest(0, 20);
+		offset = offset == null ? 0 : offset;
+		if(shop != null && product_id != null){
+			return pageService.createPage(priceRepository.findByProduct_idAndShop(product_id, shop, pageDefault), offset);
+		}
+		if(shop != null && product_id == null){
+			return pageService.createPage(priceRepository.findByShop(shop, pageDefault), offset);
+		}
+		if(shop == null && product_id != null){
+			return pageService.createPage(priceRepository.findByProduct_id(product_id, pageDefault), offset);
+		}
 		if(offset == null && limit == null){
-    		Pageable pageable = new PageRequest(0, 20);
-            return pageService.createPage(priceRepository.findAll(pageable), offset);
+            return pageService.createPage(priceRepository.findAll(pageDefault), offset);
     	}else{
     		if(offset == null){
     			offset = 0;

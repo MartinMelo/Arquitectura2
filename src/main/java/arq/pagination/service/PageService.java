@@ -3,6 +3,7 @@ package arq.pagination.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import arq.domain.Price;
 import arq.pagination.domain.Page;
 import arq.pagination.domain.Paging;
 
