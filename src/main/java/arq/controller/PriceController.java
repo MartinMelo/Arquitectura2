@@ -1,9 +1,7 @@
 package arq.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,9 +40,11 @@ public class PriceController {
 		foundPrice.setDatetime(price.getDatetime());
 		foundPrice.setPrice(price.getPrice());
 		foundPrice.setProduct_id(price.getProduct_id());
-		List<Shop> shops = shopRepository.findById(price.getShop_id());
-		if(shops.get(0) != null){
-			foundPrice.setShop(shops.get(0));
+		
+		Pageable pageable = new OffsetBasedPageRequest(0, 20);
+		Page<Shop> shops = shopRepository.findById(price.getShop_id(), pageable);
+		if(shops.getContent().get(0) != null){
+			foundPrice.setShop(shops.getContent().get(0));
 		}
 		return priceRepository.save(foundPrice);
 	}
@@ -55,28 +55,18 @@ public class PriceController {
     		@RequestParam(required=false, value="price") Double price,
     		@RequestParam(required=false, value="product_id") String product_id,
     		@RequestParam(required=false, value="shop") Long shop) {
-		Pageable pageDefault = new PageRequest(0, 20);
 		offset = offset == null ? 0 : offset;
+		limit = limit == null ? 20 : limit;
+		Pageable pageable = new OffsetBasedPageRequest(offset, limit);
 		if(shop != null && product_id != null){
-			return pageService.createPage(priceRepository.findByProduct_idAndShop(product_id, shop, pageDefault), offset);
+			return pageService.createPage(priceRepository.findByProduct_idAndShop(product_id, shop, pageable), offset);
 		}
 		if(shop != null && product_id == null){
-			return pageService.createPage(priceRepository.findByShop(shop, pageDefault), offset);
+			return pageService.createPage(priceRepository.findByShop(shop, pageable), offset);
 		}
 		if(shop == null && product_id != null){
-			return pageService.createPage(priceRepository.findByProduct_id(product_id, pageDefault), offset);
+			return pageService.createPage(priceRepository.findByProduct_id(product_id, pageable), offset);
 		}
-		if(offset == null && limit == null){
-            return pageService.createPage(priceRepository.findAll(pageDefault), offset);
-    	}else{
-    		if(offset == null){
-    			offset = 0;
-    		}
-    		if(limit == null){
-    			limit = 20; 
-    		}
-    	}
-    	Pageable pageable = new OffsetBasedPageRequest(offset, limit);
         return pageService.createPage(priceRepository.findAll(pageable), offset);
 	}
 	

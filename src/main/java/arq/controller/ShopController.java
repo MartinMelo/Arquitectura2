@@ -1,7 +1,6 @@
 package arq.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -49,23 +48,33 @@ public class ShopController {
 		    @RequestParam(required=false, value="address") String address,
 		    @RequestParam(required=false, value="latitude") Double latitude,
 		    @RequestParam(required=false, value="longitude") Double longitude) {
+    	offset = offset == null ? 0 : offset;
+		limit = limit == null ? 20 : limit;
+		Pageable pageable = new OffsetBasedPageRequest(offset, limit);
     	System.out.println(name);
     	System.out.println(location);
     	System.out.println(address);
     	System.out.println(latitude);
     	System.out.println(longitude);
-    	if(offset == null && limit == null){
-    		Pageable pageable = new PageRequest(0, 20);
-            return pageService.createPage(shopRepository.findAll(pageable), offset);
-    	}else{
-    		if(offset == null){
-    			offset = 0;
-    		}
-    		if(limit == null){
-    			limit = 20; 
-    		}
+    	if(name != null && address != null && location != null && latitude != null && longitude != null){
+    		return pageService.createPage(shopRepository.findByNameAndAddressAndLocationAndLatitudeAndLongitude(
+    				name, address, location, latitude, longitude, pageable), offset);
     	}
-    	Pageable pageable = new OffsetBasedPageRequest(offset, limit);
+    	if(name != null && address != null && location != null){
+    		return pageService.createPage(shopRepository.findByNameAndAddressAndLocation(name, address, location, pageable), offset);
+    	}
+    	if(name != null && address != null){
+    		return pageService.createPage(shopRepository.findByNameAndAddress(name, address, pageable), offset);
+    	}
+    	if(name != null && location != null){
+    		return pageService.createPage(shopRepository.findByNameAndLocation(name, location, pageable), offset);
+    	}
+    	if(latitude != null && longitude != null){
+    		return pageService.createPage(shopRepository.findByLatitudeAndLongitude(latitude, longitude, pageable), offset);
+    	}
+    	if(name != null){
+    		return pageService.createPage(shopRepository.findByName(name, pageable), offset);
+    	}
         return pageService.createPage(shopRepository.findAll(pageable), offset);
     }
     

@@ -3,7 +3,6 @@ package arq.pagination.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import arq.domain.Price;
 import arq.pagination.domain.Page;
 import arq.pagination.domain.Paging;
 
@@ -12,6 +11,7 @@ import arq.pagination.domain.Paging;
 public class PageService<T> {
 
 	public Page<T> createPage(org.springframework.data.domain.Page<T> page, int offset) {
+		System.out.println("entro");
 		Page<T> aPage = new Page<T>();
 		Paging paging = new Paging();
 		aPage.setItems(page.getContent());
