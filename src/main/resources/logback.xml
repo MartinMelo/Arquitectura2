@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<!-- <property name="DEV_HOME" value="src/main/resources/logs" />
+	<property name="DEV_HOME" value="src/main/resources/logs" />
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
@@ -63,12 +63,12 @@
 	<root level="error">
 		<appender-ref ref="FILE-ERROR" />
 	</root>
- -->
-   <appender name="loggly" class="ch.qos.logback.ext.loggly.LogglyAppender">
+ 
+   <!-- <appender name="loggly" class="ch.qos.logback.ext.loggly.LogglyAppender">
        <endpointUrl>https://logs-01.loggly.com/inputs/36b1a98a-48af-49e7-a994-a22e515d4e34/tag/logback</endpointUrl>
        <pattern>%d{"ISO8601", UTC}  %p %t %c{0}.%M - %m%n</pattern>
    </appender>
    <root level="info">
        <appender-ref ref="loggly" />
-   </root>
+   </root> -->
 </configuration>
