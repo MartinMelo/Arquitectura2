@@ -6,5 +6,5 @@ import arq.repository.PriceRepository;
 
 @RepositoryRestResource(path = "found-prices", collectionResourceRel = "found-prices")
 public interface PriceRestRepository extends PriceRepository {
-
+	
 }
