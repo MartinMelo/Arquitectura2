@@ -28,26 +28,6 @@
     <build>
         <finalName>api</finalName>
         <plugins>
-
-            <!-- Docker build image     -->
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.1</version>
-                <configuration>
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                    <dockerDirectory>src/main/docker</dockerDirectory>
-                    <dockerHost>http://192.168.99.100:2376</dockerHost>
-                    <resources>
-                        <resource>
-                            <targetPath></targetPath>
-                            <directory>target</directory>
-                            <include>api.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-            <!-- END Docker build image -->
             <!-- Spring Boot Maven -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>

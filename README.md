@@ -41,3 +41,17 @@ localhost:8080/api/v1/
 ```
 https://supermarketprices.herokuapp.com/api/v1/
 ```
+
+
+#Docker
+
+Para crear una imagen de docker sera necesario ejecutar los siguientes comandos:
+
+```
+git clone https://github.com/MartinMelo/Arquitectura2.git
+cd Arquitectura2
+mvn package
+cd ..
+docker build -t <nombreDeImagen> Arquitectura2/
+```
+Donde claramente "<nombreDeImagen>" tiene que ser reemplazado por el nombre que le quieramos dar a la imagen.
