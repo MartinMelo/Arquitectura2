@@ -1,6 +1,7 @@
 package arq.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,12 +32,15 @@ public class ShopController {
     @Autowired
     ShopRepository shopRepository;
     
+    @Value("${rest.base_path}")
+    String rest;
+    
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Shop> save(@RequestBody Shop shop, UriComponentsBuilder builder) {
         Shop aShop = shopRepository.save(shop);
         
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/shops/{id}").buildAndExpand(aShop.getId()).toUri());
+        headers.setLocation(builder.path(rest + "/shops/{id}").buildAndExpand(aShop.getId()).toUri());
         return new ResponseEntity<Shop>(headers, HttpStatus.CREATED);
     }
 
@@ -51,11 +55,6 @@ public class ShopController {
     	offset = offset == null ? 0 : offset;
 		limit = limit == null ? 20 : limit;
 		Pageable pageable = new OffsetBasedPageRequest(offset, limit);
-    	System.out.println(name);
-    	System.out.println(location);
-    	System.out.println(address);
-    	System.out.println(latitude);
-    	System.out.println(longitude);
     	if(name != null && address != null && location != null && latitude != null && longitude != null){
     		return pageService.createPage(shopRepository.findByNameAndAddressAndLocationAndLatitudeAndLongitude(
     				name, address, location, latitude, longitude, pageable), offset);

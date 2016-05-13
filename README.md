@@ -44,20 +44,20 @@ https://supermarketprices.herokuapp.com/api/v1/
 
 #Tecnologias
 
-*Java 8
-*MySQL
-*Maven3
-*Spring-boot
-*JPA Repositories
-*Hibernate
-*New Relic
-*Logback
-*Heroku
+Java 8
+MySQL
+Maven3
+Spring-boot
+JPA Repositories
+Hibernate
+New Relic
+Logback + Loggly
+Heroku
 
 #Entorno de desarrollo
 
-*Ubuntu 14.04
-*Eclipse Mars.1 Release (4.5.1)
+Ubuntu 14.04
+Eclipse Mars.1 Release (4.5.1)
 
 #Docker
 
