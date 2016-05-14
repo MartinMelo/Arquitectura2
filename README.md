@@ -71,3 +71,8 @@ cd ..
 docker build -t <nombreDeImagen> Arquitectura2/
 ```
 Donde claramente "<nombreDeImagen>" tiene que ser reemplazado por el nombre que le quieramos dar a la imagen.
+
+Para correr la imagen:
+```
+ docker run -p 8080:8080 -t <nombreDeImagen>
+```
