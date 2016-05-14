@@ -1,5 +1,6 @@
 package arq.repository;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -7,6 +8,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import arq.domain.Shop;
 import arq.repository.rest.AbstractRestRepository;
 
+@Cacheable(value = "shops", cacheManager = "springCM")
 @NoRepositoryBean
 public interface ShopRepository extends AbstractRestRepository<Shop, Long> {
 

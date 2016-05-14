@@ -10,7 +10,7 @@ public class PriceDTO {
 	private double price;
 	@Temporal(javax.persistence.TemporalType.DATE)
     private Date datetime;
-    private long shop_id;
+    private Long shop_id;
     
 	public String getProduct_id() {
 		return product_id;
@@ -30,10 +30,10 @@ public class PriceDTO {
 	public void setDatetime(Date datetime) {
 		this.datetime = datetime;
 	}
-	public long getShop_id() {
+	public Long getShop_id() {
 		return shop_id;
 	}
-	public void setShop_id(long shop_id) {
+	public void setShop_id(Long shop_id) {
 		this.shop_id = shop_id;
 	}
 	

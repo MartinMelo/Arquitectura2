@@ -6,6 +6,8 @@ package arq.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -57,6 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .httpBasic();
     }
 
+    
+    @Bean(name = "springCM")
+    public CacheManager cacheManager() {
+        return new ConcurrentMapCacheManager("shops", "found-prices", "prices");
+    }
     
     @Bean
     public PasswordEncoder tacPasswordsEncoder() {

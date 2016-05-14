@@ -3,6 +3,7 @@ package arq.repository;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +12,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import arq.domain.Price;
 import arq.repository.rest.AbstractRestRepository;
 
+@Cacheable(value = "prices", cacheManager = "springCM")
 @NoRepositoryBean
 public interface PriceRepository extends AbstractRestRepository<Price, Long> {
 	

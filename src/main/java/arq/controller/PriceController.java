@@ -49,7 +49,7 @@ public class PriceController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Price> save(@RequestBody PriceDTO price, UriComponentsBuilder builder) {
-		if(Long.valueOf(price.getShop_id()) == null){
+		if(price.getShop_id() == null){
 			throw new MarketRuntimeException("", "No se puede crear un found price sin su shop");
 		}
 		Pageable pageable = new OffsetBasedPageRequest(0, 20);
@@ -65,7 +65,7 @@ public class PriceController {
 			foundPrice.setProduct_id(price.getProduct_id());
 			
 			Page<Shop> shops = shopRepository.findById(price.getShop_id(), pageable);
-			if(shops.getContent().get(0) != null){
+			if(shops.hasContent()){
 				foundPrice.setShop(shops.getContent().get(0));
 			}
 		}
