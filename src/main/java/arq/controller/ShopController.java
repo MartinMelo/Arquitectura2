@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -32,16 +33,12 @@ public class ShopController {
     @Autowired
     ShopRepository shopRepository;
     
-    @Value("${rest.base_path}")
-    String rest;
-    
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Shop> save(@RequestBody Shop shop, UriComponentsBuilder builder) {
+    @ResponseBody
+    public Shop save(@RequestBody Shop shop) {
         Shop aShop = shopRepository.save(shop);
         
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path(rest + "/shops/{id}").buildAndExpand(aShop.getId()).toUri());
-        return new ResponseEntity<Shop>(headers, HttpStatus.CREATED);
+        return aShop;
     }
 
     @RequestMapping(method = RequestMethod.GET)

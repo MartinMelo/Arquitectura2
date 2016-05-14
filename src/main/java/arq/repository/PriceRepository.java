@@ -26,4 +26,8 @@ public interface PriceRepository extends AbstractRestRepository<Price, Long> {
 	
 	@Query("select p from Price p where p.product_id = ?1 and p.shop.id = ?2")
 	Page<Price> findByProduct_idAndShop(String id, long shop, Pageable pageable);
+	
+	@Query("select p from Price p where p.product_id = ?1 and p.shop.id = ?2 and p.datetime = ?3")
+	Page<Price> findByProduct_idAndShop_idAndDatetime(String id, long shop, Date date, Pageable pageable);
+	
 }
