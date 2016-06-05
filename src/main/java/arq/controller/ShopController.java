@@ -20,6 +20,7 @@ import arq.pagination.domain.OffsetBasedPageRequest;
 import arq.pagination.domain.Page;
 import arq.pagination.service.PageService;
 import arq.repository.ShopRepository;
+import arq.service.exception.MarketRuntimeException;
 
 /**
  * Created by Martin Alejandro on 4/11/2016.
@@ -40,7 +41,15 @@ public class ShopController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Shop> save(@RequestBody Shop shop, UriComponentsBuilder builder) {
-        Shop aShop = shopRepository.save(shop);
+        Shop aShop = null;
+    	Pageable pageable = new OffsetBasedPageRequest(0, 20);
+        
+    	org.springframework.data.domain.Page<Shop> shops = shopRepository.findByNameAndAddressAndLocation(shop.getName(), shop.getAddress(), shop.getLocation(), pageable);
+        if(shops.hasContent()){
+        	throw new MarketRuntimeException("", "Ya existe un Shop con estas características");
+        }else{
+        	aShop = shopRepository.save(shop);
+        }
         
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path(rest + "/shops/{id}").buildAndExpand(aShop.getId()).toUri());
