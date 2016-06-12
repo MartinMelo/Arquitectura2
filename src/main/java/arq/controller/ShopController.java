@@ -55,7 +55,7 @@ public class ShopController {
         headers.setLocation(builder.path(rest + "/shops/{id}").buildAndExpand(aShop.getId()).toUri());
         return new ResponseEntity<Shop>(headers, HttpStatus.CREATED);
     }
-
+    
     @RequestMapping(method = RequestMethod.GET)
     public Page<Shop> getAll(@RequestParam(required=false, value="offset") Integer offset,
     		@RequestParam(required=false, value="limit") Integer limit,
