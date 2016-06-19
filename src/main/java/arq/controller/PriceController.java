@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,6 +48,7 @@ public class PriceController {
 	@Value("${rest.base_path}")
     String rest;
 	
+	@Transactional(readOnly = false)
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Price> save(@RequestBody PriceDTO price, UriComponentsBuilder builder) {
 		if(price.getShop_id() == null){
@@ -76,6 +78,7 @@ public class PriceController {
         return new ResponseEntity<Price>(headers, HttpStatus.CREATED);
 	}
 	
+	@Transactional(readOnly = true)
 	@RequestMapping(method = RequestMethod.GET)
 	public arq.pagination.domain.Page<Price> getAll(@RequestParam(required=false, value="offset") Integer offset,
     		@RequestParam(required=false, value="limit") Integer limit,

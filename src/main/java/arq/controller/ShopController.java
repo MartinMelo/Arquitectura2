@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +39,7 @@ public class ShopController {
     @Value("${rest.base_path}")
     String rest;
     
+    @Transactional(readOnly = false)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Shop> save(@RequestBody Shop shop, UriComponentsBuilder builder) {
@@ -56,6 +58,7 @@ public class ShopController {
         return new ResponseEntity<Shop>(headers, HttpStatus.CREATED);
     }
     
+    @Transactional(readOnly = true)
     @RequestMapping(method = RequestMethod.GET)
     public Page<Shop> getAll(@RequestParam(required=false, value="offset") Integer offset,
     		@RequestParam(required=false, value="limit") Integer limit,
