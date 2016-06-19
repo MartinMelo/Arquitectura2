@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +41,7 @@ public class ShopController {
     
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
+	@Transactional(readOnly = false)
     public ResponseEntity<Shop> save(@RequestBody Shop shop, UriComponentsBuilder builder) {
         Shop aShop = null;
     	Pageable pageable = new OffsetBasedPageRequest(0, 20);
@@ -57,6 +59,7 @@ public class ShopController {
     }
     
     @RequestMapping(method = RequestMethod.GET)
+	@Transactional(readOnly = true)
     public Page<Shop> getAll(@RequestParam(required=false, value="offset") Integer offset,
     		@RequestParam(required=false, value="limit") Integer limit,
     		@RequestParam(required=false, value="name") String name,

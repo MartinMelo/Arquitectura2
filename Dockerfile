@@ -11,4 +11,4 @@ RUN nrsysmond-config --set license_key=bd2918ae06fb6a3409a7f9e7337d98d619f0373a
 RUN /etc/init.d/newrelic-sysmond start
 RUN bash -c 'touch /app.jar'
 EXPOSE 8080
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-javaagent:newrelic.jar", "-Dspring.profiles.active=docker","-jar","/app.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-javaagent:newrelic.jar", "-Dspring.profiles.active=prod","-jar","/app.jar"]

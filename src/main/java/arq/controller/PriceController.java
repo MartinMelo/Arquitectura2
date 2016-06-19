@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,6 +49,7 @@ public class PriceController {
     String rest;
 	
 	@RequestMapping(method = RequestMethod.POST)
+	@Transactional(readOnly = false)
 	public ResponseEntity<Price> save(@RequestBody PriceDTO price, UriComponentsBuilder builder) {
 		if(price.getShop_id() == null){
 			throw new MarketRuntimeException("", "No se puede crear un found price sin su shop");
@@ -77,6 +79,7 @@ public class PriceController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
+	@Transactional(readOnly = true)
 	public arq.pagination.domain.Page<Price> getAll(@RequestParam(required=false, value="offset") Integer offset,
     		@RequestParam(required=false, value="limit") Integer limit,
     		@RequestParam(required=false, value="price") Double price,
