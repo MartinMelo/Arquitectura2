@@ -48,6 +48,7 @@ public class PriceController {
 	@Value("${rest.base_path}")
     String rest;
 	
+	@Transactional(readOnly = false)
 	@RequestMapping(method = RequestMethod.POST)
 	@Transactional(readOnly = false)
 	public ResponseEntity<Price> save(@RequestBody PriceDTO price, UriComponentsBuilder builder) {
@@ -78,6 +79,7 @@ public class PriceController {
         return new ResponseEntity<Price>(headers, HttpStatus.CREATED);
 	}
 	
+	@Transactional(readOnly = true)
 	@RequestMapping(method = RequestMethod.GET)
 	@Transactional(readOnly = true)
 	public arq.pagination.domain.Page<Price> getAll(@RequestParam(required=false, value="offset") Integer offset,

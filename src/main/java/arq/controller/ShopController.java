@@ -39,6 +39,7 @@ public class ShopController {
     @Value("${rest.base_path}")
     String rest;
     
+    @Transactional(readOnly = false)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
 	@Transactional(readOnly = false)
@@ -58,6 +59,7 @@ public class ShopController {
         return new ResponseEntity<Shop>(headers, HttpStatus.CREATED);
     }
     
+    @Transactional(readOnly = true)
     @RequestMapping(method = RequestMethod.GET)
 	@Transactional(readOnly = true)
     public Page<Shop> getAll(@RequestParam(required=false, value="offset") Integer offset,
