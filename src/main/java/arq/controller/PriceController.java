@@ -56,7 +56,7 @@ public class PriceController {
 		}
 		Pageable pageable = new OffsetBasedPageRequest(0, 20);
 		Price foundPrice = null;
-		Page<Price> oldPrices = priceRepository.findByProduct_idAndShop_idAndDatetime(price.getProduct_id(), price.getShop_id(), price.getDatetime(), pageable);
+		Page<Price> oldPrices = priceRepository.findByProductAndShopAndDatetime(price.getProduct_id(), price.getShop_id(), price.getDatetime(), pageable);
 		if(oldPrices.hasContent()){
 			foundPrice = oldPrices.getContent().get(0);
 			foundPrice = priceService.update(price, foundPrice);
@@ -84,18 +84,18 @@ public class PriceController {
     		@RequestParam(required=false, value="limit") Integer limit,
     		@RequestParam(required=false, value="price") Double price,
     		@RequestParam(required=false, value="product_id") String product_id,
-    		@RequestParam(required=false, value="shop") Long shop) {
+    		@RequestParam(required=false, value="shop") String shop) {
 		offset = offset == null ? 0 : offset;
 		limit = limit == null ? 20 : limit;
 		Pageable pageable = new OffsetBasedPageRequest(offset, limit);
 		if(shop != null && product_id != null){
-			return pageService.createPage(priceRepository.findByProduct_idAndShop(product_id, shop, pageable), offset);
+			return pageService.createPage(priceRepository.findByProductAndShop(product_id, shop, pageable), offset);
 		}
 		if(shop != null && product_id == null){
 			return pageService.createPage(priceRepository.findByShop(shop, pageable), offset);
 		}
 		if(shop == null && product_id != null){
-			return pageService.createPage(priceRepository.findByProduct_id(product_id, pageable), offset);
+			return pageService.createPage(priceRepository.findByProduct(product_id, pageable), offset);
 		}
         return pageService.createPage(priceRepository.findAll(pageable), offset);
 	}

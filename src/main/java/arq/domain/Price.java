@@ -1,20 +1,18 @@
 package arq.domain;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
 
-@Entity
-public class Price extends AbstractEntity {
+public class Price{
 
 	//Variables
-	private String product_id;
+	@Id
+    private String id;
+	private String product;
 	private double price;
-	@Temporal(javax.persistence.TemporalType.DATE)
     private Date datetime;
-	@ManyToOne
     private Shop shop;
 
 	//Constructor
@@ -22,11 +20,27 @@ public class Price extends AbstractEntity {
 	}
 
 	//Getters & Setters
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getId(){
+        return this.id;
+    }
 	public String getProduct_id() {
-		return product_id;
+		return product;
 	}
 	public void setProduct_id(String product_id) {
-		this.product_id = product_id;
+		this.product = product_id;
 	}
 	public double getPrice() {
 		return price;

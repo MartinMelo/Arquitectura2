@@ -1,7 +1,5 @@
 package arq.config;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +17,6 @@ public class RepositoryRestConfiguration extends RepositoryRestMvcConfiguration 
     protected void configureRepositoryRestConfiguration(org.springframework.data.rest.core.config.RepositoryRestConfiguration config) {
         config.exposeIdsFor(Shop.class);
         config.exposeIdsFor(Price.class);
-        try {
-            config.setBaseUri(new URI(this.base_path));
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        config.setBasePath(this.base_path);
     }
 }
