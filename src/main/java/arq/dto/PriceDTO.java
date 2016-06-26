@@ -37,5 +37,4 @@ public class PriceDTO {
 		this.shop_id = shop_id;
 	}
 	
-    
 }

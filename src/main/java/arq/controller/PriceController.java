@@ -1,5 +1,7 @@
 package arq.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import arq.domain.Price;
 import arq.domain.Shop;
 import arq.dto.PriceDTO;
+import arq.dto.PriceDetailDTO;
 import arq.pagination.domain.OffsetBasedPageRequest;
 import arq.pagination.service.PageService;
 import arq.repository.PriceRepository;
@@ -98,6 +101,29 @@ public class PriceController {
 			return pageService.createPage(priceRepository.findByProduct_id(product_id, pageable), offset);
 		}
         return pageService.createPage(priceRepository.findAll(pageable), offset);
+	}
+	
+	@RequestMapping(value="/update", method = RequestMethod.POST)
+	@Transactional(readOnly = false)
+	public ResponseEntity<Price> update(@RequestBody PriceDetailDTO price, UriComponentsBuilder builder) {
+		if(price.getId() == null){
+			throw new MarketRuntimeException("", "No se puede crear un found price sin su shop");
+		}
+		List<Price> prices = priceRepository.findById(price.getId());
+		if(prices.isEmpty()){
+			throw new MarketRuntimeException("", "No existe este producto");
+		}else{
+			Price foundPrice = prices.get(0);
+			
+		    foundPrice = priceService.updateDetails(foundPrice, price);
+		    priceRepository.save(foundPrice);
+			
+			HttpHeaders headers = new HttpHeaders();
+			headers.setLocation(builder.path(rest + "/found-proces/{id}").buildAndExpand(foundPrice.getId()).toUri());
+			return new ResponseEntity<Price>(headers, HttpStatus.CREATED);
+			
+		}
+		
 	}
 	
 }
