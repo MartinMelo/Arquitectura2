@@ -76,3 +76,13 @@ Para correr la imagen:
 ```
  docker run -p 8080:8080 -t <nombreDeImagen>
 ```
+
+# MongoDb
+
+###Automatic Failover
+
+When a primary does not communicate with the other members of the set for more than 10 seconds, an eligible secondary will hold an election to elect itself the new primary. The first secondary to hold an election and receive a majority of the members’ votes becomes primary.
+
+New in version 3.2: MongoDB introduces a version 1 of the replication protocol (protocolVersion: 1) to reduce replica set failover time and accelerates the detection of multiple simultaneous primaries. New replica sets will, by default, use protocolVersion: 1. Previous versions of MongoDB use version 0 of the protocol.
+
+![Modo de eleccion de nodos](https://docs.mongodb.com/manual/_images/replica-set-trigger-election.png)
