@@ -77,12 +77,50 @@ Para correr la imagen:
  docker run -p 8080:8080 -t <nombreDeImagen>
 ```
 
+
+
 # MongoDb
 
+Para habilitar un ring de mongo sera necesario tener al menos 3 nodos corriendo mongod,
+cada nodo puede correr de la siguiente manera(ejemplo funcional):
+```
+mongod --fork --port 27017 --db-path /data/db1 --smallfile
+mongod --fork --port 27018 --db-path /data/db2 --smallfile
+mongod --fork --port 27019 --db-path /data/db3 --smallfile
+```
+Una vez teniendo los 3 nodos corriendo sera necesario conectarse al que elijamos 
+como nodo PRIMARY de la siguiente manera:
+```
+mongo --port 27017
+rs.conf()
+rs.initiate()
+rs.conf()
+rs.add("<nombreDeHost>:27018")
+rs.status()
+rs.add("<nombreDeHost>:27019")
+rs.status()
+```
+Luego de esto ya tendremos nuestros 3 nodos comunicandose entre ellos.
+Desde nuestro proyecto sera necesario referenciar a todos los nodos en la url
+de la coneccion a la base de datos.
+ 
+ 
+ 
 ###Automatic Failover
 
-When a primary does not communicate with the other members of the set for more than 10 seconds, an eligible secondary will hold an election to elect itself the new primary. The first secondary to hold an election and receive a majority of the members’ votes becomes primary.
 
-New in version 3.2: MongoDB introduces a version 1 of the replication protocol (protocolVersion: 1) to reduce replica set failover time and accelerates the detection of multiple simultaneous primaries. New replica sets will, by default, use protocolVersion: 1. Previous versions of MongoDB use version 0 of the protocol.
+Cuando se pierde la comunicacion del primario con los demas miembros del cluster/replica por unos pocos segundos,
+se elige entre los demas mediante una votacion para ver quien sera el nuevo primario. El cual sera
+el secundario con mas votos.
+La version 3.2 de Mongo utiliza un protocolo mas nuevo el cual permite detectar mas rapido la falla y acelerar
+la deteccion de multiples primarys.
+
+La imagen muestra el "Trigger" de la eleccion del nuevo primary
 
 ![Modo de eleccion de nodos](https://docs.mongodb.com/manual/_images/replica-set-trigger-election.png)
+
+
+
+En las pruebas realizadas no diferencia en el tiempo de respuesta, fue casi instantaneo el switcheo entre nodos.
+El switcheo entre De Slave a Master se da cuanto el actual Master desaparece. Si el Master verdadero vuelve a la vida
+este volvera a ser el Master unicamente si el Actual master(antes slave) desaparece.
